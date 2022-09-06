@@ -7,7 +7,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, blank=True)
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=500)
     # user_image =
@@ -30,9 +30,10 @@ class Pet(models.Model):
     name = models.CharField(max_length=100)
     animal_group = models.CharField(max_length=100, choices=GROUP_CHOICES)
     animal_kind = models.CharField(max_length=100)
-    dob = models.CharField(max_length=100, help_text='<em>MM-DD-YYYY</em>')
-    gotcha_date = models.DateField()
-    age = models.PositiveIntegerField()
+    dob = models.DateField(help_text='<em>YYYY-MM-DD</em>',
+                           blank=True, null=True, verbose_name='DOB')
+    gotcha_date = models.DateField(help_text='<em>YYYY-MM-DD</em>')
+    age = models.PositiveIntegerField(blank=True, null=True)
     # pet_image =
 
     def __str__(self):
@@ -51,9 +52,10 @@ class Expense(models.Model):
     pet = models.ForeignKey(
         Pet, on_delete=models.CASCADE, related_name='expenses')
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
-    date = models.DateField()
-    amount = models.PositiveIntegerField()
-    description = models.TextField()
+    date = models.DateField(
+        help_text='<em>YYYY-MM-DD</em>', blank=True, null=True)
+    amount = models.FloatField(help_text='<em>Currency in USD</em>')
+    description = models.TextField(blank=True)
     # expense_image =
 
     def __str__(self):
@@ -63,9 +65,9 @@ class Expense(models.Model):
 class Observation(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE,
                             related_name='observations')
-    title = models.CharField(max_length=100)
-    date = models.DateField()
-    description = models.TextField()
+    title = models.CharField(max_length=100, blank=True)
+    date = models.DateField(help_text='<em>YYYY-MM-DD</em>', blank=True)
+    description = models.TextField(blank=True)
     # obvs_image =
 
     def __str__(self):
@@ -75,12 +77,13 @@ class Observation(models.Model):
 class Record(models.Model):
     pet = models.ForeignKey(
         Pet, on_delete=models.CASCADE, related_name='records')
-    clinic_name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    vet = models.CharField(max_length=100)
-    appt_date = models.DateField()
-    visit_reason = models.CharField(max_length=100)
-    comment = models.TextField()
+    clinic_name = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    vet = models.CharField(max_length=100, blank=True)
+    appt_date = models.DateField(
+        help_text='<em>YYYY-MM-DD</em>', blank=True, null=True)
+    visit_reason = models.CharField(max_length=100, blank=True)
+    comment = models.TextField(blank=True)
     # record_image =
 
     def __str__(self):
