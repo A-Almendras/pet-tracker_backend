@@ -1,21 +1,22 @@
 from dataclasses import fields
 from rest_framework import serializers
-from ..models import User, Pet, Expense, Observation, Record
+from ..models import Pet, Expense, Observation, Record
+from accounts.models import NewUser
 
 ###### ONCE ADD IMG URL TO MODELS MUST ADD TO EACH FIELD ON HERE ######
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    pets = serializers.HyperlinkedRelatedField(
-        view_name='pet_detail',
-        many=True,
-        read_only=True
-    )
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#     pets = serializers.HyperlinkedRelatedField(
+#         view_name='pet_detail',
+#         many=True,
+#         read_only=True
+#     )
 
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'email',
-                  'location', 'username', 'password', 'pets')
+#     class Meta:
+#         model = NewUser
+#         fields = ('id', 'first_name', 'last_name', 'email',
+#                   'location', 'username', 'password', 'pets')
 
 
 class PetSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,7 +41,7 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     user_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
+        queryset=NewUser.objects.all(),
         source='user'
     )
 

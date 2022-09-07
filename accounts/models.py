@@ -25,7 +25,8 @@ class CustomUserManager(BaseUserManager):
     # creates and saves superuser
     def create_superuser(self, first_name, last_name, email, username, password, **other_fields):
         # As of now, For this app all admins are staff
-        other_fields.setdefault('is_admin', True)
+        other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
 
         return self.create_user(first_name, last_name, email, username, password, **other_fields)
@@ -38,7 +39,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     location = models.CharField(max_length=100, blank=True)
     username = models.CharField(max_length=100, unique=True)
     user_image = models.TextField(blank=True)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     # 👇🏽 if no secondary check (i.e email verification to activate the user) then set default to True
     is_active = models.BooleanField(default=False)
 

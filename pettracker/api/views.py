@@ -1,19 +1,20 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import UserSerializer, PetSerializer, ExpenseSerializer, ObservationSerializer, RecordSerializer
+from .serializers import PetSerializer, ExpenseSerializer, ObservationSerializer, RecordSerializer
 from ..models import User, Pet, Expense, Observation, Record
+# from accounts.serializers import UserSerializer
 
 # Create your views here.
 
 
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserList(generics.ListCreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
 class PetList(generics.ListCreateAPIView):

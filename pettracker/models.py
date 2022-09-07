@@ -1,19 +1,22 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
 
-class User(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    location = models.CharField(max_length=100, blank=True)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=500)
-    # user_image =
+# class User(models.Model):
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
+#     email = models.EmailField(max_length=100)
+#     location = models.CharField(max_length=100, blank=True)
+#     username = models.CharField(max_length=100)
+#     password = models.CharField(max_length=500)
+#     # user_image =
 
-    def __str__(self):
-        return self.username
+#     def __str__(self):
+#         return self.username
+
+User = settings.AUTH_USER_MODEL
 
 
 class Pet(models.Model):
