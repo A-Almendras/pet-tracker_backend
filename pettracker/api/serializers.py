@@ -1,6 +1,6 @@
 from dataclasses import fields
 from rest_framework import serializers
-from .models import User, Pet, Expense, Observation, Record
+from ..models import User, Pet, Expense, Observation, Record
 
 ###### ONCE ADD IMG URL TO MODELS MUST ADD TO EACH FIELD ON HERE ######
 

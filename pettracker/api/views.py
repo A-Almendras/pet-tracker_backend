@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .serializers import UserSerializer, PetSerializer, ExpenseSerializer, ObservationSerializer, RecordSerializer
-from .models import User, Pet, Expense, Observation, Record
+from ..models import User, Pet, Expense, Observation, Record
 
 # Create your views here.
 
