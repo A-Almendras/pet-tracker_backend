@@ -1,6 +1,34 @@
+from multiprocessing.sharedctypes import Value
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-# Create your models here.
+# Creating custom user model.
+
+
+class CustomUserManager(BaseUserManager):
+    # creates and saves user
+    def create_user(self, first_name, last_name, email, username, password, **other_fields):
+
+        # Validation Checks
+        if not email:
+            raise ValueError('A unique email address is required')
+        if not username:
+            raise ValueError('A unique username is required')
+
+        email = self.normalize_email(email)
+        user = self.model(first_name=first_name, last_name=last_name,
+                          email=email, username=username, **other_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    # creates and saves superuser
+    def create_superuser(self, first_name, last_name, email, username, password, **other_fields):
+        # As of now, For this app all admins are staff
+        other_fields.setdefault('is_admin', True)
+        other_fields.setdefault('is_active', True)
+
+        return self.create_user(first_name, last_name, email, username, password, **other_fields)
 
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
@@ -9,11 +37,16 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=100, unique=True)
     location = models.CharField(max_length=100, blank=True)
     username = models.CharField(max_length=100, unique=True)
-    password = models.CharField(max_length=500)
-    # user_image =
-    is_staff = models.BooleanField(default=False)
+    user_image = models.TextField(blank=True)
+    is_admin = models.BooleanField(default=False)
+    # 👇🏽 if no secondary check (i.e email verification to activate the user) then set default to True
     is_active = models.BooleanField(default=False)
 
+    # Defining that we are utilizing a new custom manager
+    objects = CustomUserManager()
 
-class CustomUserManager(BaseUserManager):
-    pass
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+
+    def __str__(self):
+        return self.username
