@@ -40,8 +40,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     user_image = models.TextField(blank=True)
     is_staff = models.BooleanField(default=False)
-    # 👇🏽 if no secondary check (i.e email verification to activate the user) then set default to True
-    is_active = models.BooleanField(default=False)
+    # 👇🏽 if no secondary check (i.e email verification to activate the user) then set default to True else False
+    is_active = models.BooleanField(default=True)
 
     # Defining that we are utilizing a new custom manager
     objects = CustomUserManager()
