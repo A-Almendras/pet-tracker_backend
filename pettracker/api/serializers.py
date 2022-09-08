@@ -3,7 +3,23 @@ from rest_framework import serializers
 from ..models import Pet, Expense, Observation, Record
 from accounts.models import NewUser
 
+# Customizing token claims
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
 ###### ONCE ADD IMG URL TO MODELS MUST ADD TO EACH FIELD ON HERE ######
+
+# Customizing token claims
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+
+        return token
 
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
