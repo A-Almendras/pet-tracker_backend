@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .serializers import PetSerializer, ExpenseSerializer, ObservationSerializer, RecordSerializer, MyTokenObtainPairSerializer
-from ..models import User, Pet, Expense, Observation, Record
-# from accounts.serializers import UserSerializer
+from ..models import Pet, Expense, Observation, Record
+from accounts.serializers import RegisterUserSerializer
+from accounts.models import User
 
 # Customizing token claims
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -22,6 +23,15 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
+
+# class UserList(generics.ListCreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = RegisterUserSerializer
+
+
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = RegisterUserSerializer
 
 
 class PetList(generics.ListCreateAPIView):

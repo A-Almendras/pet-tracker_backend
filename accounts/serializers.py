@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 # from .models import User
-from pettracker.api.serializers import PetSerializer
+# from pettracker.api.serializers import PetSerializer
 # Returns the model defined in AUTH_USER_MODEL
 User = get_user_model()
 
@@ -9,7 +9,8 @@ User = get_user_model()
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
-
+    url = serializers.HyperlinkedIdentityField(
+        view_name="accounts:user-detail")
     pets = serializers.HyperlinkedRelatedField(
         view_name='pet-detail',
         many=True,
@@ -38,3 +39,18 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         # instance.save)
         # return instance
         return user
+
+
+# class UsersSerializer(serializers.ModelSerializer):
+#     url = serializers.HyperlinkedIdentityField(
+#         view_name="accounts:user-list")
+
+#     pets = serializers.HyperlinkedRelatedField(
+#         view_name='pet-detail',
+#         many=True,
+#         read_only=True)
+
+#     class Meta:
+#         model = User
+#         fields = ('id', 'first_name', 'last_name',
+#                   'email', 'location', 'username', 'pets', 'url')

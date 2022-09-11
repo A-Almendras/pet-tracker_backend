@@ -1,7 +1,9 @@
+from cgitb import lookup
 from dataclasses import fields
 from rest_framework import serializers
 from ..models import Pet, Expense, Observation, Record
-from accounts.models import NewUser
+from accounts.models import User
+from django.conf import settings
 
 # Customizing token claims
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -9,15 +11,17 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 ###### ONCE ADD IMG URL TO MODELS MUST ADD TO EACH FIELD ON HERE ######
 
+# User = settings.AUTH_USER_MODEL
+
 # Customizing token claims
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-
         # Add custom claims
         token['username'] = user.username
-        # ...
 
         return token
 
@@ -36,29 +40,34 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class PetSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
-        read_only=True
+
+    # user = serializers.HyperlinkedRelatedField(
+    #     view_name='user-detail',
+    #     read_only=True
+    # )
+
+    user = serializers.HyperlinkedIdentityField(
+        view_name="accounts:user-detail", read_only=True)
+
+    user_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        source='user'
     )
+
     expenses = serializers.HyperlinkedRelatedField(
-        view_name='expense_detail',
+        view_name='expense-detail',
         many=True,
         read_only=True
     )
     observations = serializers.HyperlinkedRelatedField(
-        view_name='observation_detail',
+        view_name='observation-detail',
         many=True,
         read_only=True
     )
     records = serializers.HyperlinkedRelatedField(
-        view_name='record_detail',
+        view_name='record-detail',
         many=True,
         read_only=True
-    )
-
-    user_id = serializers.PrimaryKeyRelatedField(
-        queryset=NewUser.objects.all(),
-        source='user'
     )
 
     class Meta:
@@ -69,9 +78,8 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     pet = serializers.HyperlinkedRelatedField(
-        view_name='pet_detail',
-        read_only=False,
-        queryset=Pet.objects.all()
+        view_name='pet-detail',
+        read_only=True,
     )
 
     pet_id = serializers.PrimaryKeyRelatedField(
@@ -87,7 +95,7 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 
 class ObservationSerializer(serializers.HyperlinkedModelSerializer):
     pet = serializers.HyperlinkedRelatedField(
-        view_name='pet_detail',
+        view_name='pet-detail',
         read_only=True
     )
 
@@ -98,12 +106,13 @@ class ObservationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Observation
-        fields = ('id', 'pet', 'pet_id', 'title', 'date', 'description')
+        fields = ('id', 'pet', 'pet_id',
+                  'title', 'date', 'description')
 
 
 class RecordSerializer(serializers.HyperlinkedModelSerializer):
     pet = serializers.HyperlinkedRelatedField(
-        view_name='pet_detail',
+        view_name='pet-detail',
         read_only=True
     )
 

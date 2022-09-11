@@ -2,12 +2,14 @@ from django.shortcuts import render
 from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
-from rest_framework.response import Response
+# from rest_framework.response import Response
 from .models import User
 from .serializers import RegisterUserSerializer
-from rest_framework.viewsets import ModelViewSet
+# from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
+
+User = get_user_model()
 
 
 class CreateUserView(CreateAPIView):
@@ -25,11 +27,11 @@ class CreateUserView(CreateAPIView):
     #     return Response(serializer_class.errors, denied)
 
 
-class UserList(ModelViewSet):
-    queryset = get_user_model().objects.all()
+class UserList(ListCreateAPIView):
+    queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
 
 
-class UserDetail(ModelViewSet):
-    queryset = get_user_model().objects.all()
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
     serializer_class = RegisterUserSerializer

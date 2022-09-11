@@ -16,6 +16,7 @@ from django.conf import settings
 #     def __str__(self):
 #         return self.username
 
+
 User = settings.AUTH_USER_MODEL
 
 
