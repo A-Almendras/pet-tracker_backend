@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
+import dj_database_url
 from ctypes import cast
 from pathlib import Path
-from decouple import config
+# from decouple import config
 
 from datetime import timedelta
 
@@ -26,12 +28,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #########################################################
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+# DEBUG = config('DEBUG', cast=bool)
+# Replace the DEBUG = True with:
+DEBUG = True if os.environ['MODE'] == 'dev' else False
 
-ALLOWED_HOSTS = []
+# Change this according to your needs:
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,8 +60,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -97,8 +103,9 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,14 +143,18 @@ WSGI_APPLICATION = 'pettracker_django.wsgi.application'
 
 #########################################################
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'pettracker',
+#         'USER': 'pettracker_user',
+#         'PASSWORD': 'pettracker',
+#         'HOST': 'localhost'
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pettracker',
-        'USER': 'pettracker_user',
-        'PASSWORD': 'pettracker',
-        'HOST': 'localhost'
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 #########################################################
@@ -193,5 +204,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Define the auth user model
 AUTH_USER_MODEL = 'accounts.User'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 #########################################################
