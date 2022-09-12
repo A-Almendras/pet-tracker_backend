@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'pettracker',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'accounts',
 ]
