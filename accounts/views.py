@@ -30,8 +30,10 @@ class CreateUserView(CreateAPIView):
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
+    # permission_classes = [permissions.IsAuthenticated]

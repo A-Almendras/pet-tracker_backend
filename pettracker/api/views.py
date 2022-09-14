@@ -39,6 +39,14 @@ class PetList(generics.ListCreateAPIView):
     serializer_class = PetSerializer
 
 
+class PetListByuser(generics.ListCreateAPIView):
+    # queryset = Pet.objects.all()
+    serializer_class = PetSerializer
+
+    def get_queryset(self):
+        return self.model.objects.owned_by_user(self.request.user)
+
+
 class PetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
