@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-import os
+import os  # python module that uses things that are related to your operating system
 import dj_database_url
 from ctypes import cast
 from pathlib import Path
