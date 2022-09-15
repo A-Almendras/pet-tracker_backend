@@ -20,6 +20,7 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 
+# Each class of this is an instance (as an object) of the Pet class
 class Pet(models.Model):
     GROUP_CHOICES = (
         ('mammal', 'Mammal'),
@@ -38,7 +39,7 @@ class Pet(models.Model):
                            blank=True, null=True, verbose_name='DOB')
     gotcha_date = models.DateField(help_text='<em>YYYY-MM-DD</em>')
     age = models.PositiveIntegerField(blank=True, null=True)
-    # pet_image =
+    # pet_image = models.CharField(max_length=None)
 
     def __str__(self):
         return self.name
@@ -60,7 +61,9 @@ class Expense(models.Model):
         help_text='<em>YYYY-MM-DD</em>', blank=True, null=True)
     amount = models.FloatField(help_text='<em>Currency in USD</em>')
     description = models.TextField(blank=True)
-    # expense_image =
+    # expense_image = models.CharField(max_length=None)
+    # updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    # time_stamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.category
@@ -72,7 +75,9 @@ class Observation(models.Model):
     title = models.CharField(max_length=100, blank=True)
     date = models.DateField(help_text='<em>YYYY-MM-DD</em>', blank=True)
     description = models.TextField(blank=True)
-    # obvs_image =
+    # obvs_image = mmodels.CharField(max_length=None)
+    # updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    # time_stamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -88,7 +93,9 @@ class Record(models.Model):
         help_text='<em>YYYY-MM-DD</em>', blank=True, null=True)
     visit_reason = models.CharField(max_length=100, blank=True)
     comment = models.TextField(blank=True)
-    # record_image =
+    # record_image = models.CharField(max_length=None)
+    # updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    # time_stamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.visit_reason
