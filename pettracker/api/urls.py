@@ -13,7 +13,9 @@ urlpatterns = [
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
 
     # path('users/', views.UserList.as_view(), name='user_list'),
-    path('pets/', views.PetList.as_view(), name='pet-list'),
+    # path('pets/', views.PetList.as_view(), name='pet-list'), # <- lists all the pets of all users
+    # path('pets/', views.petListByUser, name='pet-list'), # <- url for function based view
+    path('pets/', views.PetListByUser.as_view(), name='pet-list'),
     path('expenses/', views.ExpenseList.as_view(), name='expense-list'),
     path('observations/', views.ObservationList.as_view(), name='observation-list'),
     path('records/', views.RecordList.as_view(), name='record-list'),
