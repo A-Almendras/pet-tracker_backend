@@ -74,6 +74,8 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
         model = Pet
         fields = ('id', 'user', 'user_id', 'name', 'animal_group',
                   'animal_kind', 'dob', 'gotcha_date', 'age', 'expenses', 'observations', 'records')
+        extra_kwargs = {'dob': {'allow_null': True},
+                        'age': {'allow_null': True}}
 
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):

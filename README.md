@@ -32,6 +32,7 @@ Life gets crazy and keeping track of everything and everyone in our lives that n
 - PostgreSQL
 - Heroku
 - MaterialUI
+- Figma
 - Trello, Miro
 
 ---

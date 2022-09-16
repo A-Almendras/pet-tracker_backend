@@ -23,12 +23,12 @@ User = settings.AUTH_USER_MODEL
 # Each class of this is an instance (as an object) of the Pet class
 class Pet(models.Model):
     GROUP_CHOICES = (
-        ('mammal', 'Mammal'),
-        ('bird', 'Bird'),
-        ('fish', 'Fish'),
-        ('reptile', 'Reptile'),
-        ('amphibian', 'Amphibian'),
-        ('other', 'Other')
+        ('Mammal', 'Mammal'),
+        ('Bird', 'Bird'),
+        ('Fish', 'Fish'),
+        ('Reptile', 'Reptile'),
+        ('Amphibian', 'Amphibian'),
+        ('Other', 'Other')
     )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='pets')
@@ -39,6 +39,7 @@ class Pet(models.Model):
                            blank=True, null=True, verbose_name='DOB')
     gotcha_date = models.DateField(help_text='<em>YYYY-MM-DD</em>')
     age = models.PositiveIntegerField(blank=True, null=True)
+    # weight = models.PositiveIntegerField(blank=True, null=True)
     # pet_image = models.CharField(max_length=None)
 
     def __str__(self):
@@ -47,12 +48,12 @@ class Pet(models.Model):
 
 class Expense(models.Model):
     CATEGORY_CHOICES = (
-        ('vet', 'Vet'),
-        ('food', 'Food'),
-        ('toys', 'Toys'),
-        ('apparel', 'Apparel'),
-        ('medical', 'Medical'),
-        ('other', 'Other'),
+        ('Vet', 'Vet'),
+        ('Food', 'Food'),
+        ('Toys', 'Toys'),
+        ('Apparel', 'Apparel'),
+        ('Medical', 'Medical'),
+        ('Other', 'Other'),
     )
     pet = models.ForeignKey(
         Pet, on_delete=models.CASCADE, related_name='expenses')
