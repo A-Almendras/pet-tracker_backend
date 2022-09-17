@@ -34,6 +34,7 @@ Life gets crazy and keeping track of everything and everyone in our lives that n
 - MaterialUI
 - Figma
 - Trello, Miro
+- ChartJs
 
 ---
 
@@ -53,9 +54,13 @@ Life gets crazy and keeping track of everything and everyone in our lives that n
 
 ### **_Screenshots_**
 
-![]()
+##### Intended layout of the application (WIP, not yet implemented)
 
-![]()
+![LandingPage](images/landing.png)
+
+![Register](images/register.png)
+
+![PetDashboard](images/dash.png)
 
 ##### **Component Hierarchy Diagram**
 
