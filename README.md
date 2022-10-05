@@ -4,9 +4,9 @@
 
 ### By: Anaflavia Almendras
 
-#### [PetCare2.0](https://pet-tracker-app.herokuapp.com/) | [GitHub](https://github.com/A-Almendras) | [LinkedIn](https://www.linkedin.com/in/aalmendras/)
+#### [GitHub](https://github.com/A-Almendras) | [LinkedIn](https://www.linkedin.com/in/aalmendras/)
 
----
+## <!-- [PetCare2.0](https://pet-tracker-app.herokuapp.com/) -->
 
 ![CoverImg](images/N8fM.gif)
 
@@ -48,13 +48,13 @@ Life gets crazy and keeping track of everything and everyone in our lives that n
 
 ##### A Trello board was used to keep track of development progress and can be viewed [here](https://trello.com/b/Xst7FccT/project-4-pet-tracker-app).
 
-##### The project itself was deployed and can be viewed [here](https://pet-tracker-app.herokuapp.com/).
+<!-- ##### The project itself was deployed and can be viewed [here](https://pet-tracker-app.herokuapp.com/). -->
 
 ---
 
 ### **_Screenshots_**
 
-##### Intended layout of the application (WIP, not yet implemented)
+##### Intended layout of the application (WIP)
 
 ![LandingPage](images/landing.png)
 
