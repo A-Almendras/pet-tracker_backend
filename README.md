@@ -1,6 +1,6 @@
 # PetCare2.0 - _Pet More, Worry Less_
 
-## Date: 09/01-14/2022
+<!-- ## Date: 09/01-14/2022 -->
 
 ### By: Anaflavia Almendras
 
